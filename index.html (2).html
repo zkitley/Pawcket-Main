@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pawket — Pet Wellness Membership (Cancel Anytime)</title>
+  <meta name="description" content="Pawket is a simple, cancel‑anytime pet wellness membership with 24/7 televet, partner discounts, and Pawket Points redeemable for gift cards and vet vouchers. Not insurance." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='80'%3E🐾%3C/text%3E%3C/svg%3E" />
+  <style>
+    :root{
+      --bg:#0b1020; --bg2:#0e152b; --card:#0f1c39; --soft:#0c1631; --text:#e6edf3; --muted:#9aa5b1; --border:rgba(255,255,255,.10);
+      --brand:#6aa8ff; --brand-2:#8bc8ff; --ok:#22c55e; --warn:#f59e0b; --shadow:0 10px 30px rgba(2,6,23,.35)
+    }
+    @media (prefers-color-scheme: light){
+      :root{ --bg:#ffffff; --bg2:#f7fafc; --card:#ffffff; --soft:#f1f5f9; --text:#0f172a; --muted:#475569; --border:rgba(2,6,23,.08); --brand:#2563eb; --brand-2:#60a5fa; --shadow:0 12px 28px rgba(2,6,23,.10) }
+    }
+    *{box-sizing:border-box} html,body{height:100%}
+    body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--text);
+      background:radial-gradient(1200px 600px at 15% -10%, rgba(106,168,255,.18), transparent 60%),
+                 radial-gradient(900px 480px at 85% -20%, rgba(34,197,94,.12), transparent 55%),
+                 linear-gradient(180deg,var(--bg),var(--bg2))}
+    a{color:inherit}
+    .container{max-width:1100px;margin:0 auto;padding:0 20px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:1px solid var(--border);background:var(--brand);color:#0b1020;
+         font-weight:800;padding:12px 18px;border-radius:12px;text-decoration:none;box-shadow:var(--shadow);transition:transform .08s ease, filter .2s ease}
+    .btn:hover{transform:translateY(-1px);filter:brightness(1.06)}
+    .btn.ghost{background:transparent;color:var(--text)}
+    .btn.outline{background:transparent;border-color:var(--brand);color:var(--brand)}
+
+    /* Header */
+    header{position:sticky;top:0;z-index:50;background:linear-gradient(180deg,rgba(0,0,0,.45),rgba(0,0,0,.00));backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid var(--border)}
+    .nav{height:66px;display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.2px}
+    .navlinks{display:flex;gap:10px}
+
+    /* Hero */
+    .hero{padding:72px 0 36px;text-align:center}
+    .badge{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border);background:rgba(255,255,255,.06);color:var(--muted);padding:6px 10px;border-radius:999px;font-size:12px}
+    h1{font-size:clamp(30px,5vw,58px);letter-spacing:-.4px;line-height:1.06;margin:12px 0 10px}
+    .lede{max-width:780px;margin:0 auto 20px;color:var(--muted);font-size:clamp(16px,2.4vw,18px)}
+    .hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+
+    /* Section */
+    .section{padding:44px 0}
+
+    /* Pricing grid */
+    .pricing{display:grid;grid-template-columns:1fr;gap:18px}
+    @media(min-width:900px){.pricing{grid-template-columns:repeat(3,1fr)}}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+    .card .head{padding:20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+    .card .body{padding:18px 20px 8px}
+    .card .foot{padding:18px 20px 22px;margin-top:auto}
+    .price{font-weight:900;font-size:30px}
+    .pill{border:1px solid var(--border);border-radius:999px;padding:6px 10px;font-size:12px;color:var(--muted)}
+    ul.features{list-style:none;padding:0;margin:14px 0 0}
+    ul.features li{padding-left:28px;margin:10px 0;position:relative}
+    ul.features li:before{content:"✔";position:absolute;left:0;top:0;color:var(--ok);font-weight:900}
+
+    /* Points */
+    .points{background:linear-gradient(180deg,rgba(255,255,255,.04),transparent);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .grid-2{display:grid;grid-template-columns:1fr;gap:16px}
+    @media(min-width:900px){.grid-2{grid-template-columns:1fr 1fr}}
+    .table{width:100%;border-collapse:collapse}
+    .table th,.table td{border:1px solid var(--border);padding:10px 12px;text-align:left}
+    .table th{background:rgba(255,255,255,.06);font-size:14px}
+
+    /* Showcase */
+    .show{display:grid;grid-template-columns:1fr;gap:14px}
+    @media(min-width:900px){.show{grid-template-columns:1.2fr 1fr}}
+    .mock{border:1px solid var(--border);background:var(--soft);border-radius:14px;min-height:260px;display:grid;place-items:center;color:var(--muted)}
+
+    /* Quotes */
+    .quotes{display:grid;grid-template-columns:1fr;gap:14px}
+    @media(min-width:900px){.quotes{grid-template-columns:repeat(3,1fr)}}
+    .quote{border:1px solid var(--border);background:var(--card);border-radius:14px;padding:16px}
+    .quote em{color:var(--muted)}
+
+    /* FAQ */
+    details{border:1px solid var(--border);background:var(--card);border-radius:12px;padding:12px 14px}
+    details+details{margin-top:10px}
+    summary{cursor:pointer;font-weight:700}
+
+    /* Footer */
+    footer{border-top:1px solid var(--border);padding:28px 0 70px;color:var(--muted);font-size:13px}
+
+    /* Anim */
+    @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+    .animate{animation:fadeUp .5s ease both}
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <div class="brand"><span style="font-size:20px">🐾</span> <span>Pawket</span></div>
+      <nav class="navlinks">
+        <a class="btn ghost" href="#pricing">Pricing</a>
+        <a class="btn ghost" href="#points">Rewards</a>
+        <a class="btn" href="#join">Get early access</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero container animate">
+      <span class="badge">Cancel‑anytime · Not insurance · VIP support on every plan</span>
+      <h1>Wellness for your pet, without the red tape.</h1>
+      <p class="lede">Join Pawket for instant televet access, real clinic discounts, and <strong>Pawket Points</strong> you can redeem for gift cards, grooming, dental, and more.</p>
+      <div class="hero-cta">
+        <a class="btn" href="#pricing">See plans</a>
+        <a class="btn outline" href="#how">How it works</a>
+      </div>
+    </section>
+
+    <!-- Showcase / How it works -->
+    <section id="how" class="section container animate">
+      <div class="show">
+        <div class="mock">(App preview placeholder)</div>
+        <div>
+          <h2 style="margin:0 0 8px;font-size:26px">How Pawket works</h2>
+          <ol style="line-height:1.7; color:var(--muted); padding-left:18px">
+            <li>Pick a plan and join in under a minute.</li>
+            <li>Use 24/7 televet and partner‑clinic discounts immediately.</li>
+            <li>Generate prepaid vouchers for wellness, vaccines, or dental (Plus/Premium).</li>
+            <li>Earn Pawket Points when you spend with partners or refer friends — redeem for gift cards and vet vouchers.</li>
+          </ol>
+          <div class="hero-cta"><a class="btn" href="#join">Get early access</a></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="section container animate">
+      <h2 style="margin:0 0 8px;font-size:26px">Choose your plan</h2>
+      <p class="lede" style="margin-bottom:18px">Transparent pricing. Instant perks. VIP support on every tier.</p>
+      <div class="pricing">
+        <!-- Basic -->
+        <article class="card">
+          <div class="head">
+            <div>
+              <div class="pill">Most affordable</div>
+              <div class="price">$15<span style="font-size:14px;font-weight:600">/mo</span></div>
+            </div>
+            <div class="pill">Basic</div>
+          </div>
+          <div class="body">
+            <ul class="features">
+              <li>24/7 televet chat + video</li>
+              <li>10% discounts at partner clinics</li>
+              <li>Pawket Points: 1 per $25 spent with partners</li>
+              <li>Redeem for pet‑store gift cards & vet vouchers</li>
+              <li>VIP customer support</li>
+              <li>Cancel anytime</li>
+            </ul>
+          </div>
+          <div class="foot"><a class="btn" data-plan="basic" href="#join">Join Basic</a></div>
+        </article>
+
+        <!-- Plus -->
+        <article class="card">
+          <div class="head">
+            <div>
+              <div class="pill" style="background:rgba(117,167,255,.12)">Best value</div>
+              <div class="price">$30<span style="font-size:14px;font-weight:600">/mo</span></div>
+            </div>
+            <div class="pill">Plus</div>
+          </div>
+          <div class="body">
+            <ul class="features">
+              <li>Everything in Basic</li>
+              <li>20% partner clinic discounts</li>
+              <li>1 annual wellness exam voucher</li>
+              <li>Double Points: 1 per $12 spent</li>
+              <li>Monthly prize giveaways</li>
+              <li>VIP customer support</li>
+            </ul>
+          </div>
+          <div class="foot"><a class="btn" data-plan="plus" href="#join">Join Plus</a></div>
+        </article>
+
+        <!-- Premium -->
+        <article class="card" style="outline:2px solid rgba(117,167,255,.35)">
+          <div class="head">
+            <div>
+              <div class="pill" style="background:rgba(34,197,94,.12)">Most perks</div>
+              <div class="price">$50<span style="font-size:14px;font-weight:600">/mo</span></div>
+            </div>
+            <div class="pill">Premium</div>
+          </div>
+          <div class="body">
+            <ul class="features">
+              <li>Everything in Plus</li>
+              <li>30% discounts at clinics & pharmacies</li>
+              <li>Full annual wellness + vaccines voucher — <strong>instant</strong></li>
+              <li>Full dental cleaning voucher — <strong>instant</strong></li>
+              <li>Bonus +5 Pawket Points monthly</li>
+              <li>Priority 24/7 VIP support</li>
+            </ul>
+          </div>
+          <div class="foot"><a class="btn" data-plan="premium" href="#join">Join Premium</a></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Points -->
+    <section id="points" class="points section animate">
+      <div class="container">
+        <h2 style="margin:0 0 8px;font-size:26px">How Pawket Points work</h2>
+        <p class="lede">Earn points when you spend with partners, refer friends, and stay loyal. Cash them in for real value.</p>
+        <div class="grid-2">
+          <div class="card" style="padding:16px">
+            <h3 style="margin:6px 0 6px">Earn</h3>
+            <table class="table">
+              <tr><th>Action</th><th>Points</th></tr>
+              <tr><td>Spend $25 with partners</td><td>1 Point</td></tr>
+              <tr><td>Refer a friend who subscribes</td><td>10 Points</td></tr>
+              <tr><td>Stay subscribed 3 months</td><td>5 Points</td></tr>
+              <tr><td>Complete surveys / clinic check‑ins</td><td>1–3 Points</td></tr>
+            </table>
+          </div>
+          <div class="card" style="padding:16px">
+            <h3 style="margin:6px 0 6px">Redeem</h3>
+            <table class="table">
+              <tr><th>Reward</th><th>Value</th></tr>
+              <tr><td>25 Points</td><td>$10 gift card (Chewy/PetSmart/Petco)</td></tr>
+              <tr><td>50 Points</td><td>$25 grooming or dental voucher</td></tr>
+              <tr><td>100 Points</td><td>Annual exam voucher or Pawket merch</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Social proof -->
+    <section class="section container animate">
+      <h2 style="margin:0 0 8px;font-size:26px">Loved by pet parents</h2>
+      <div class="quotes">
+        <div class="quote">“Booked my cat’s wellness visit the same week I joined. No hoops.”<br/><em>— Maya, Raleigh</em></div>
+        <div class="quote">“Televet at 2am saved us a panic trip. Worth it for that alone.”<br/><em>— Andre, Austin</em></div>
+        <div class="quote">“Points turned into a Chewy card in a month. Felt like free food.”<br/><em>— Jess, Denver</em></div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section container animate">
+      <h2 style="margin:0 0 8px;font-size:26px">FAQ</h2>
+      <details>
+        <summary>Is Pawket insurance?</summary>
+        <div class="lede">No. Pawket provides membership discounts, prepaid vouchers, and virtual vet consults. There are no claims or reimbursements.</div>
+      </details>
+      <details>
+        <summary>How do vouchers work?</summary>
+        <div class="lede">You get a digital code to redeem at participating clinics for listed services. Clinics invoice Pawket directly. Simple.</div>
+      </details>
+      <details>
+        <summary>Can I cancel anytime?</summary>
+        <div class="lede">Yes. If you redeem a prepaid voucher and cancel within 90 days of signup, the retail value of the redeemed service will be billed to your payment method.</div>
+      </details>
+    </section>
+
+    <!-- Join / waitlist (Tally embed placeholder) -->
+    <section id="join" class="section container animate">
+      <div class="card" style="padding:22px;display:grid;gap:10px;justify-items:center;text-align:center">
+        <div class="pill">Early Access</div>
+        <h3 style="margin:0;font-size:22px">Be first to try Pawket</h3>
+        <p class="lede" style="margin:0">Drop your email and we’ll invite you as we open new cities.</p>
+        <!-- Replace the div below with your Tally inline embed or Stripe Checkout links -->
+        <div id="form-slot" style="width:100%;max-width:560px;border:1px dashed var(--border);border-radius:12px;padding:14px;color:var(--muted)">
+          Paste your Tally embed here • or link the plan buttons above to Stripe Checkout
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center">
+      <div>© <span id="y"></span> Pawket</div>
+      <div style="max-width:860px">
+        <small>
+          Pawket provides access to partner discounts, prepaid vouchers, and virtual veterinary consultations. It is not insurance and does not reimburse for services or guarantee coverage. Memberships renew monthly and can be canceled anytime. If a prepaid voucher is redeemed and membership is canceled within 90 days of signup, the retail value of redeemed services will be billed separately.
+        </small>
+      </div>
+    </div>
+  </footer>
+
+  <!-- OPTIONAL: Google Analytics (replace G-XXXXXXX) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-XXXXXXX');
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
